@@ -50,3 +50,42 @@ build
 we can build the build folder so dont generate it.
 git add .
 git commit -m "Graphql Server Setup"
+
+we use docker compose to setup postgres in development.
+this goes inside the docker-compose.yml
+
+version: '3.4'
+services:
+  postgres:
+    container_name: threads-db
+    image: postgres
+    ports:
+      -5432:5432
+    volumes:
+      -postgres_data:var/lib/postgresql/data
+    environment:
+      POSTGRES_USER:postgres
+      POSTGRES_DB:threads
+      POSTGRES_PASSOWORD:threads
+volumes:
+  postgres_data:
+
+  how to run this?
+
+  version: '3.4'
+services:
+  postgres:
+    container_name: threads-db
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: threads
+      POSTGRES_PASSWORD: threads
+volumes:
+  postgres_data:
+
+  then do: docker compose up
