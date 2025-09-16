@@ -89,3 +89,35 @@ volumes:
   postgres_data:
 
   then do: docker compose up
+
+now till now we have created simple garphql server having single query. we had docker compose file and we ran postgres in that
+we will connect the postgres to out application using prsima.
+
+
+in the docker dashboard we can see a stack,
+this is beacuse we ran a command "docker compose up" that created this stack and thread-db is the name of the container_name from docker-compose.yml
+
+now lets run docker compose up, with this stack will be up and running.
+if we check the log we can see the postgres running. 
+
+now run docker compose -d this will run the container in background.
+
+
+now we will setup prisma.
+
+yarn add prisma typescript ts-node @types/node -d
+
+
+now we need to nod npx prisma init
+  after this command we can see the .end files is generated and prisma folder with its schema file.
+  now are going to write our schema and connect out docker container with it.
+    
+DATABASE_URL="postgresql://postgres:threads@loaclhost:5432/threads?schema=public"
+database connectivity.
+
+now after writing the schema in prisma 
+now int we will enter the bash of the docker container.
+and get inside the postgresql.
+with command \c threads : it will connect me to the database
+
+npx prisma migrate dev --name create_users_table
