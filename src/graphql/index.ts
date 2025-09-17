@@ -1,0 +1,33 @@
+import { ApolloServer } from '@apollo/server';
+import {User} from './user/index.js';
+
+async function createApolloServer() {
+
+
+    //create the server.
+    const gqlServer = new ApolloServer({
+        typeDefs: `
+
+    type Query{
+     hello:String
+     }
+
+    type Mutation{
+     ${User.mutations}
+
+     }`,
+    //schema
+        resolvers: {    
+            Query: { 
+                  ...User.resolvers.queries,
+            },
+            Mutation:{
+                ...User.resolvers.mutations,
+            }
+        }
+    });
+    //start the gqlserver
+    await gqlServer.start();
+    return gqlServer;
+}
+export default createApolloServer
